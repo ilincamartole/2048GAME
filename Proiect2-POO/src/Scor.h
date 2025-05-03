@@ -1,13 +1,29 @@
 #pragma once
 #include <iostream>
+#include <vector>
 
-class Scor {
-private:
+class Scor
+{
+   private:
     int scorCurent;
-
-public:
-    Scor();
+    std::vector<int> scoruri;  // Vector pentru a reține toate scorurile
     void reset();
-    void adauga(int valoare);
+
+   public:
+    Scor();
+
+    void adauga(int puncte);
+
+    void salveazaScor();
+
+    void afiseazaScoruri() const;
+
     int getScorCurent() const;
+
+    // Copy-and-swap
+    friend void swap(Scor &first, Scor &second) noexcept;
+
+    Scor(const Scor &other);
+
+    Scor &operator=(Scor other);
 };

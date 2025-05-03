@@ -1,28 +1,27 @@
 #pragma once
-
 #include "Block.h"
 #include "Board.h"
 #include "Joc2048.h"
 #include "Scor.h"
 
-class JocGreu : public Joc2048
+class JocRandom : public Joc2048
 {
    private:
     static const int DIM = 6;
-    static const int cod = 2;
+    JocRandom(const JocRandom& other) : Joc2048(other) {}
 
    public:
-    JocGreu(const JocGreu& other) : Joc2048(other) {}
-
     Scor scor;
-    JocGreu();
+    JocRandom();
     Board& getBoard();
     const Board& getBoard() const;
+
+    int getScor() const;
     void initBoard();
     void mutari(char directie, int cod) override;
     void afiseaza() const override;
     friend sf::Color Block::getCuloare() const;
-    void adaugaBlocNouColorat();
+
     friend void Board::adaugaBlocRandom();
 
     friend bool Board::estePlin() const;

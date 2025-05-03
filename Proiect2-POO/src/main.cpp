@@ -1,143 +1,49 @@
-
-// #include "Joc2048.h"
-// #include <iostream>
-// #include <sstream>
-// #include <SFML/Graphics.hpp>
-
-// sf::Color getTileColor(int value) {
-//     switch (value) {
-//         case 2: return sf::Color(238, 228, 218);
-//         case 4: return sf::Color(237, 224, 200);
-//         case 8: return sf::Color(242, 177, 121);
-//         case 16: return sf::Color(245, 149, 99);
-//         case 32: return sf::Color(246, 124, 95);
-//         case 64: return sf::Color(246, 94, 59);
-//         case 128: return sf::Color(237, 207, 114);
-//         case 256: return sf::Color(237, 204, 97);
-//         case 512: return sf::Color(237, 200, 80);
-//         case 1024: return sf::Color(237, 197, 63);
-//         case 2048: return sf::Color(237, 194, 46);
-//         default: return sf::Color(205, 193, 180);
-//     }
-// }
-
-// int main() {
-//     const int tileSize = 100, padding = 10, boardSize = 6;
-//     sf::RenderWindow window(sf::VideoMode((tileSize + padding) * boardSize + padding,
-//                                           (tileSize + padding) * boardSize + padding + 100),
-//                             "2048 Game");
-
-//     sf::Font font;
-//     if (!font.loadFromFile("src/happy-kids.ttf")) {
-//         std::cerr << "Eroare la incarcarea fontului!\n";
-//         return -1;
-//     }
-
-//     Joc2048 joc;
-
-//     while (window.isOpen()) {
-//         sf::Event event;
-//         while (window.pollEvent(event)) {
-//             if (event.type == sf::Event::Closed)
-//                 window.close();
-//             else if (event.type == sf::Event::KeyPressed) {
-//                 if (event.key.code == sf::Keyboard::Left)
-//                     joc.muta('a');
-//                 else if (event.key.code == sf::Keyboard::Right)
-//                     joc.muta('d');
-//                 else if (event.key.code == sf::Keyboard::Up)
-//                     joc.muta('w');
-//                 else if (event.key.code == sf::Keyboard::Down)
-//                     joc.muta('s');
-//             }
-//         }
-
-//         window.clear(sf::Color(250, 248, 239));
-//         Board& board = joc.getBoard();
-
-//         for (int i = 0; i < boardSize; ++i) {
-//             for (int j = 0; j < boardSize; ++j) {
-//                 sf::RectangleShape cell(sf::Vector2f(tileSize, tileSize));
-//                 cell.setPosition(padding + j * (tileSize + padding), padding + i * (tileSize + padding));
-//                 int val = board.getValoare(i, j);
-//                 cell.setFillColor(getTileColor(val));
-//                 window.draw(cell);
-
-//                 if (val != 0) {
-//                     sf::Text text(std::to_string(val), font, 36);
-//                     text.setFillColor(sf::Color::Black);
-//                     sf::FloatRect bounds = text.getLocalBounds();
-//                     text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-//                     text.setPosition(cell.getPosition().x + tileSize / 2.0f, cell.getPosition().y + tileSize / 2.0f);
-//                     window.draw(text);
-//                 }
-//             }
-//         }
-
-//         sf::Text scorText("Scor: " + std::to_string(joc.getScor()), font, 24);
-//         scorText.setFillColor(sf::Color::Black);
-//         scorText.setPosition(padding, (tileSize + padding) * boardSize + padding);
-//         window.draw(scorText);
-
-//         if (joc.esteGameOver()) {
-//             sf::Text gameOver("Ai pierdut!", font, 48);
-//             gameOver.setFillColor(sf::Color::Red);
-//             sf::FloatRect rect = gameOver.getLocalBounds();
-//             gameOver.setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
-//             gameOver.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
-//             window.draw(gameOver);
-//             window.display();
-//             sf::sleep(sf::seconds(3));
-//             window.close();
-//         } else {
-//             window.display();
-//         }
-//     }
-//     return 0;
-// }
-
-
-#include "Joc2048.h"
-#include "Board.h"
-#include "JocGreu.h"
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <memory>
-#include <SFML/Graphics.hpp>
 
-sf::Color getTileColor(int value) {
-    switch (value) {
-        case 2: return sf::Color(238, 228, 218);
-        case 4: return sf::Color(237, 224, 200);
-        case 8: return sf::Color(242, 177, 121);
-        case 16: return sf::Color(245, 149, 99);
-        case 32: return sf::Color(246, 124, 95);
-        case 64: return sf::Color(246, 94, 59);
-        case 128: return sf::Color(237, 207, 114);
-        case 256: return sf::Color(237, 204, 97);
-        case 512: return sf::Color(237, 200, 80);
-        case 1024: return sf::Color(237, 197, 63);
-        case 2048: return sf::Color(237, 194, 46);
-        default: return sf::Color(205, 193, 180);
-    }
-}
+#include "Block.h"
+#include "Board.h"
+#include "EroareJoc.h"
+#include "Joc2048.h"
+#include "JocGreu.h"
+#include "JocRandom.h"
+#include "Scor.h"
 
-int main() {
+int main()
+{
     const int tileSize = 100, padding = 10, boardSize = 6;
 
-    std::cout << "Alege modul de joc:\n";
-    std::cout << "1. Clasic\n";
-    std::cout << "2. Greu (valoare + culoare)\n";
-
-    std::cout << "Introdu alegerea ta: ";
-
     int optiune;
+    std::cout << "Alege modul de joc (1 - Clasic, 2 - Greu, 3 - Random): ";
     std::cin >> optiune;
+
+    try
+    {
+        if (optiune != 1 && optiune != 2 && optiune != 3)
+        {
+            throw EroareModJocInvalid();
+        }
+    }
+    catch (const EroareJoc& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return 1;  // Închide programul
+    }
 
     std::unique_ptr<Joc2048> joc;
 
-    switch (optiune) {
-        case 1: joc = std::make_unique<Joc2048>(); break;
-        case 2: joc = std::make_unique<JocGreu>(); break;
+    switch (optiune)
+    {
+        case 1:
+            joc = std::make_unique<Joc2048>();
+            break;
+        case 2:
+            joc = std::make_unique<JocGreu>();
+            break;
+        case 3:
+            joc = std::make_unique<JocRandom>();
+            break;
 
         default:
             std::cout << "Optiune invalida. Se porneste modul clasic.\n";
@@ -145,22 +51,57 @@ int main() {
             break;
     }
 
-    sf::RenderWindow window(sf::VideoMode((tileSize + padding) * boardSize + padding,
-                                          (tileSize + padding) * boardSize + padding + 100),
-                            "2048 Game");
+    Joc2048* jocTest = new JocGreu();
+    if (auto* jocGreu = dynamic_cast<JocGreu*>(jocTest))
+    {
+        std::cout << "Jocul este in modul on." << std::endl;
+    }
+    delete jocTest;
 
-    sf::Font font;
-    if (!font.loadFromFile("src/happy-kids.ttf")) {
-        std::cerr << "Eroare la incarcarea fontului!\n";
-        return -1;
+    JocGreu jocOriginal;
+    jocOriginal.getScor().adauga(100);  // Adaugă un scor pentru testare
+
+    // Creează o copie folosind constructorul de copiere
+    JocGreu jocCopie = jocOriginal;
+
+    // Verifică dacă scorul a fost copiat corect
+    std::cout << "Scor original: " << jocOriginal.getScor().getScorCurent()
+              << std::endl;
+    std::cout << "Scor copie: " << jocCopie.getScor().getScorCurent()
+              << std::endl;
+
+    sf::RenderWindow window(
+        sf::VideoMode((tileSize + padding) * boardSize + padding,
+                      (tileSize + padding) * boardSize + padding + 100),
+        "2048 Game");
+    if (!window.isOpen())
+    {
+        throw EroareFereastra();
     }
 
-    while (window.isOpen()) {
+    sf::Font font;
+    try
+    {
+        if (!font.loadFromFile("src/happy-kids.ttf"))
+        {
+            throw EroareFont();
+        }
+    }
+    catch (const EroareJoc& e)
+    {
+        std::cerr << e.what() << std::endl;
+        return 1;  // Închide programul
+    }
+
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
-            else if (event.type == sf::Event::KeyPressed) {
+            else if (event.type == sf::Event::KeyPressed)
+            {
                 if (event.key.code == sf::Keyboard::Left)
                     joc->mutari('a', optiune);
                 else if (event.key.code == sf::Keyboard::Right)
@@ -175,41 +116,75 @@ int main() {
         window.clear(sf::Color(250, 248, 239));
         const Board& board = joc->getBoard();
 
-        for (int i = 0; i < boardSize; ++i) {
-            for (int j = 0; j < boardSize; ++j) {
+        for (int i = 0; i < boardSize; ++i)
+        {
+            for (int j = 0; j < boardSize; ++j)
+            {
                 sf::RectangleShape cell(sf::Vector2f(tileSize, tileSize));
-                cell.setPosition(padding + j * (tileSize + padding), padding + i * (tileSize + padding));
+                cell.setPosition(padding + j * (tileSize + padding),
+                                 padding + i * (tileSize + padding));
                 int val = board.getValoare(i, j);
-                cell.setFillColor(getTileColor(val));
+                cell.setFillColor(
+                    board.getCuloare(i, j));  // Folosește culoarea blocului
                 window.draw(cell);
 
-                if (val != 0) {
+                if (val != 0)
+                {
                     sf::Text text(std::to_string(val), font, 36);
                     text.setFillColor(sf::Color::Black);
                     sf::FloatRect bounds = text.getLocalBounds();
-                    text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-                    text.setPosition(cell.getPosition().x + tileSize / 2.0f, cell.getPosition().y + tileSize / 2.0f);
+                    text.setOrigin(bounds.left + bounds.width / 2.0f,
+                                   bounds.top + bounds.height / 2.0f);
+                    text.setPosition(cell.getPosition().x + tileSize / 2.0f,
+                                     cell.getPosition().y + tileSize / 2.0f);
                     window.draw(text);
                 }
             }
         }
 
-        sf::Text scorText("Scor: " + std::to_string(joc->getScor()), font, 24);
+        sf::Text scorText(
+            "Scor: " + std::to_string(joc->getScor().getScorCurent()), font,
+            24);
         scorText.setFillColor(sf::Color::Black);
-        scorText.setPosition(padding, (tileSize + padding) * boardSize + padding);
+        scorText.setPosition(padding,
+                             (tileSize + padding) * boardSize + padding);
         window.draw(scorText);
 
-        if (joc->esteGameOver()) {
-            sf::Text gameOver("Ai pierdut!", font, 48);
-            gameOver.setFillColor(sf::Color::Red);
+        if (joc->esteGameOver())
+        {
+            sf::Text gameOver;
+            if (joc->getBoard().estePlin() && joc->getBoard().esteBlocaje())
+            {
+                gameOver.setString("Ai pierdut!");
+                gameOver.setFillColor(sf::Color::Red);
+            }
+            else
+            {
+                gameOver.setString("Felicitari!");
+                gameOver.setFillColor(sf::Color::Green);
+            }
+
+            gameOver.setFont(font);
+            gameOver.setCharacterSize(48);
             sf::FloatRect rect = gameOver.getLocalBounds();
-            gameOver.setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
-            gameOver.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+            gameOver.setOrigin(rect.left + rect.width / 2.0f,
+                               rect.top + rect.height / 2.0f);
+            gameOver.setPosition(window.getSize().x / 2.0f,
+                                 window.getSize().y / 2.0f);
             window.draw(gameOver);
             window.display();
             sf::sleep(sf::seconds(3));
+
+            // Salvează scorul curent
+            joc->getScor().salveazaScor();
+
+            // Afișează toate scorurile
+            joc->getScor().afiseazaScoruri();
+
             window.close();
-        } else {
+        }
+        else
+        {
             window.display();
         }
     }

@@ -1,23 +1,22 @@
 #pragma once
-#include <SFML/Graphics.hpp>  // Include pentru a folosi SFML
+#include <SFML/Graphics.hpp>
 
-class Block {
-private:
+class Block
+{
+   private:
     int valoare;
     sf::Color culoare;
 
-public:
-    Block();  // Constructor implicit
-    Block(int v);  // Constructor cu valoare specifică
+   public:
+    Block();
+    Block(int v);
 
-    int getValoare() const;  // Returnează valoarea blocului
-    void setValoare(int v);  // Setează valoarea blocului
+    int getValoare() const;
+    void setValoare(int v);
 
-    bool esteGol() const;  // Verifică dacă blocul este gol (valoare 0)
-    void dubleaza();  // Dublează valoarea blocului
-    void setCuloare(const sf::Color& nouaCuloare);  // Setează culoarea blocului
-    sf::Color getCuloare() const;  // Returnează culoarea blocului
-
-  
+    bool esteGol() const;
+    void dubleaza();
+    void setCuloare(const sf::Color& nouaCuloare);
+    virtual sf::Color getCuloare() const;
+    sf::Color determinaCuloare(int valoare) const;
 };
-

@@ -1,37 +1,41 @@
-
 #include "Joc2048.h"
-#include "Board.h"
-#include "Scor.h"
-#include "Timeout.h"
+
 #include <iostream>
 
-Joc2048::Joc2048() {
-  
+#include "Board.h"
+#include "Scor.h"
+
+int Joc2048::numarJocuri = 0;
+
+Joc2048::Joc2048() {}
+Joc2048::~Joc2048() {}
+
+void Joc2048::afiseaza() const
+{
+    board.afiseaza();
+    std::cout << "Scor: " << scor.getScorCurent() << "\n";
 }
 
-void Joc2048::afiseaza() const {
-    board.afiseaza();  // Afișează tabla
-    std::cout << "Scor: " << scor.getScorCurent() << "\n";  // Afișează scorul
+void Joc2048::mutari(char directie, int cod)
+{
+    board.muta(directie, cod);
+    scor.adauga(4);
+    board.verificaGameOver();
 }
 
-void Joc2048::mutari(char directie, int cod) {
-    board.muta(directie,cod);
-    scor.adauga(4);  
-    if (esteGameOver()) {
-        std::cout << "Game Over!" << std::endl;
-    }
-
+bool Joc2048::esteGameOver() const
+{
+    return board.estePlin() && board.esteBlocaje();
 }
 
-bool Joc2048::esteGameOver() const {
-    return board.estePlin() && board.esteBlocaje();  
+Board& Joc2048::getBoard() { return board; }
+
+const Board& Joc2048::getBoard() const { return board; }
+void Joc2048::descriere() const
+{
+    std::cout << "Acesta este modul Joc Clasic." << std::endl;
 }
 
-Board& Joc2048::getBoard() {
-    return board;
-}
-
-int Joc2048::getScor() const {
-    return scor.getScorCurent(); 
-}
-
+Joc2048* Joc2048::clone() const { return new Joc2048(*this); }
+Scor& Joc2048::getScor() { return scor; }
+const Scor& Joc2048::getScor() const { return scor; }
