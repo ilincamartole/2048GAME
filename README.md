@@ -4,6 +4,11 @@ Proiectul simulează Jocul 2048, ce se bazează pe fuzionarea a două block-uri 
 -Joc Random: în loc de puterile lui 2, block-urile iau inițial valori de la 1 la 9.
 
 Instrucțiuni: se folosesc săgețile sus, jos, stânga, dreapta pentru a muta block-urile. Când se apasă o tastă, toate block-urile ce se pot muta în direcția respectivă vor face asta.
+Comanda de rulare a jocului este :
+g++ -std=c++17 -IC:/SFML-2.5.1/include -LC:/SFML-2.5.1/lib src/main.cpp src/Block.cpp src/Board.cpp src/Joc2048.cpp src/Scor.cpp src/BlockSpecial.cpp src/JocGreu.cpp src/JocRandom.cpp -lsfml-graphics -lsfml-window -lsfml-system -o main.exe
+>>
+Urmata de : ./main.exe
+Apoi, se urmează instrucțiunile din terminal.
 
 Cerințe:
 
