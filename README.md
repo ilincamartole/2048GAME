@@ -45,7 +45,7 @@ Cerințe (tema 2):
   
 - const ✅
 
-  Cerințe (tema 3):
+Cerințe (tema 3):
 
 - transformarea unei clase deja existente ]ntr-o clasă template: Am transformat clasa Block în clasă template pentru a putea rula pe orice tip de valori. ✅
     
