@@ -1,9 +1,9 @@
 # 2048GAME
 Proiectul simulează Jocul 2048, ce se bazează pe fuzionarea a două block-uri daca acestea au aceeași valoare (putere a lui doi). Scopul jocului este să se creeze un block ce sa aibă valoarea 2048. In realizarea jocului am implementat și alte patru moduri:
--Joc Greu: block-urile se pot combina numai daca au aceeași valoarea ȘI aceeași culoare
--Joc Random: în loc de puterile lui 2, block-urile iau inițial valori de la 1 la 9.
--Joc MultiplesOfFive: în loc de puterile lui 2, jocul operează pe multipli de 5.
--Joc Extrem: tabla de joc se separă în 4 cadrane. Când într-un cadran se ajunge la valoarea 32, acel cadran se blochează și se mai mișcă doar blocurile din cadranele celelalte. Deși blocurile din cadranul blocat își pot schimba valorile, datorita funcției adaugaBlocRandom, acest lucru nu afectează "înghețarea" acelui cadran. Scopul acestui mod este de a crea valoarea 32 în toate dintre cele 4 cadrane.
+- Joc Greu: block-urile se pot combina numai daca au aceeași valoarea ȘI aceeași culoare
+- Joc Random: în loc de puterile lui 2, block-urile iau inițial valori de la 1 la 9.
+- Joc MultiplesOfFive: în loc de puterile lui 2, jocul operează pe multipli de 5.
+- Joc Extrem: tabla de joc se separă în 4 cadrane. Când într-un cadran se ajunge la valoarea 32, acel cadran se blochează și se mai mișcă doar blocurile din cadranele celelalte. Deși blocurile din cadranul blocat își pot schimba valorile, datorita funcției adaugaBlocRandom, acest lucru nu afectează "înghețarea" acelui cadran. Scopul acestui mod este de a crea valoarea 32 în toate dintre cele 4 cadrane.
 
 Comanda de rulare a jocului este :
 
