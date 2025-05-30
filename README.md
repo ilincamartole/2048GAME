@@ -38,8 +38,11 @@ Cerințe:
 - Cerinte (tema 3):
 
   - transformarea unei clase intr-o clasa template: Am transformat clasa Block in clasa template pentru a putea rula pe orice tip de valori. ✅
+    
   - realizarea autentificarii user-ului cu o clasa Singleton: aceasta citeste din fisier si valideaza numele de utilizator si parola. ✅
+    
   - design patters: Am facut JobFactory.h ca sa ea launch diferitelor moduri de joc.✅
+    
   - functiile membre si atributele din clasa Block sunt acum template. ✅
 
 Bibliografie:
