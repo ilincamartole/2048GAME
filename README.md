@@ -8,8 +8,8 @@ La inceput, user-ul se logheaza cu o parola. Username-ul si parola sunt citite d
 
 Instrucțiuni: se folosesc săgețile sus, jos, stânga, dreapta pentru a muta block-urile. Când se apasă o tastă, toate block-urile ce se pot muta în direcția respectivă vor face asta.
 Comanda de rulare a jocului este :
-g++ -std=c++17 -IC:/SFML-2.5.1/include -LC:/SFML-2.5.1/lib src/main.cpp src/Block.cpp src/Board.cpp src/Joc2048.cpp src/Scor.cpp src/BlockSpecial.cpp src/JocGreu.cpp src/JocRandom.cpp -lsfml-graphics -lsfml-window -lsfml-system -o main.exe
->>
+g++ -std=c++17 -IC:/SFML-2.5.1/include -LC:/SFML-2.5.1/lib src/main.cpp src/Joc2048.cpp src/Board.cpp  src/Scor.cpp src/JocGreu.cpp src/JocRandom.cpp src/JocPowersOfFive.cpp src/JocExtrem.cpp -lsfml-graphics -lsfml-window -lsfml-system -o main.exe
+>> 
 Urmata de : ./main.exe
 Apoi, se urmează instrucțiunile din terminal.
 
@@ -39,7 +39,7 @@ Cerințe:
 
   - transformarea unei clase intr-o clasa template: Am transformat clasa Block in clasa template pentru a putea rula pe orice tip de valori. ✅
     
-  - realizarea autentificarii user-ului cu o clasa Singleton: aceasta citeste din fisier si valideaza numele de utilizator si parola. ✅
+  - realizarea autentificarii user-ului cu o clasa Singleton (UserManual.h): aceasta citeste din fisier si valideaza numele de utilizator si parola. ✅
     
   - design patters: Am facut JobFactory.h ca sa ea launch diferitelor moduri de joc.✅
     
